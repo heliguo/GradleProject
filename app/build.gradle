@@ -2,6 +2,34 @@ plugins {
     id 'com.android.application'
 }
 
+//plugins {
+//    id 'com.example.buildsrc.PluginDemo'
+//}
+
+//class PluginDemo implements Plugin<Project>{
+//    @Override
+//    void apply(Project project) {
+////        def author = new ExtensionDemo()
+//        def author = project.extensions.create('lgh',ExtensionDemo)
+//        println("hello ${author.name}")
+//        project.afterEvaluate {
+//            println("hello ${author.name}")
+//        }
+//    }
+//}
+
+//class ExtensionDemo{
+//    def name = 'lgh'
+//}
+
+apply plugin: 'com.example.plugin'
+
+lgh {
+    name 'llgghh'
+}
+
+
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -65,9 +93,14 @@ task bumpVersion() {
 
 task commitWithVersion(dependsOn: bumpVersion) {
     doLast {
-        commandLine('git commit -a -m "Bump Version!"')
+//        commandLine('git commit -m "Bump Version!"')
+        println 'git commit -m "Bump Version!"'
     }
 }
+
+//afterEvaluate {
+//    project.task("assembleDebug")
+//}
 
 dependencies {
 
