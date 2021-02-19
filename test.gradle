@@ -1,0 +1,73 @@
+
+//1. 创建一个任务
+task createTask{
+    doFirst {
+        println 'doFirst'
+    }
+
+    doLast {
+        println 'doLast'
+    }
+
+}
+
+int methodA(){
+    return 5
+}
+void methodB(int num){
+}
+
+methodB(methodA())
+
+
+
+////2. 使用TaskContainer创建一个任务,Project已经定义的TaskContainer,即tasks
+//tasks.create("createTask1"){
+//    doFirst {
+//        println 'doFirst'
+//    }
+//
+//    doLast {
+//        println 'doLast'
+//    }
+//}
+//
+////单任务依赖：通过dependsOn指定要依赖的任务
+//task A{
+//    doFirst{
+//        println 'A'
+//    }
+//}
+//task B(dependsOn: A){
+//    doFirst{
+//        println 'B'
+//    }
+//}
+//
+//task C{
+//    doFirst{
+//        println 'C'
+//    }
+//}
+//
+////多任务依赖
+//task D{
+//    dependsOn A, C
+//    doFirst{
+//        println 'D'
+//    }
+//}
+//
+////任务之间的交互
+//task E{
+//    println 'hello e'
+//    println "E是不是Project的属性："+project.hasProperty('E')
+//}
+//
+//E.doFirst{
+//    println 'doFirst'
+//}
+//
+//E.doLast{
+//    println 'doLast'
+//}

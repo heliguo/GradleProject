@@ -1,0 +1,80 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.example.GradleProject"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+
+        //内测版
+        internal {
+            initWith debug
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        //收费or免费版 国际化
+        flavorDimensions 'price', 'national'//层级
+        productFlavors {
+            free {
+                dimension 'price'
+            }
+            paid {
+                dimension 'price'
+            }
+            china {
+                dimension 'national'
+            }
+            global {
+                dimension 'national'
+            }
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+task bumpVersion() {
+    doLast {
+        def versionPropsFile = file('version.properties')
+        def versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        def codeBumped = versionProps['VERSION_CODE'].toInteger() + 1
+        versionProps['VERSION_CODE'] = codeBumped.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+    }
+}
+
+task commitWithVersion(dependsOn: bumpVersion) {
+    doLast {
+        commandLine('git commit -a -m "Bump Version!"')
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
