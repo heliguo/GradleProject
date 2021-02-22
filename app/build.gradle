@@ -22,10 +22,12 @@ plugins {
 //    def name = 'lgh'
 //}
 
-apply plugin: 'com.example.plugin'
 
-lgh {
-    name 'llgghh'
+
+apply plugin: 'com.example.plugin2'
+
+lgh2 {
+    name 'llgghh2'
 }
 
 
@@ -78,6 +80,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+apply plugin: 'com.example.plugin'
+
+lgh {
+    name 'llgghh'
 }
 
 task bumpVersion() {
